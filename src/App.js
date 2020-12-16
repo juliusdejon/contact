@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import Search from './Search';
+import Contacts from './Contacts';
 
-function App() {
+import './App.scss';
+
+const App = () => {
+  const [search, setSearch] = useState('');
+  const [contacts, setContacts] = useState([]);
+
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    async function fetchContacts() {
+      if (search) {
+        await fetch(`https://jsonplaceholder.typicode.com/users?name=${search}`)
+          .then((response) => response.json())
+          .then((data) => setContacts(data));
+      } else {
+        await fetch('https://jsonplaceholder.typicode.com/users')
+          .then((response) => response.json())
+          .then((data) => setContacts(data));
+      }
+    }
+    fetchContacts();
+  }, [search]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="App">
+      <article className="container">
+        <Search search={search} onSearch={onSearch} />
+        <Contacts contacts={contacts} />
+      </article>
+    </main>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,27 @@
+.contact-container {
+  padding: 12px;
+  height: 140px;
+  margin: 24px;
+  border: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.contact-container div:first-child {
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.contact-container div {
+  margin: 6px 0px;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+}
+
+.info {
+  color: #f47735;
+}
